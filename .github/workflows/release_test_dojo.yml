@@ -48,17 +48,13 @@ jobs:
             arch: amd64
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: dtolnay/rust-toolchain@master
         name: Rust Toolchain Setup
         with:
           targets: ${{ matrix.job.target }}
           toolchain: ${{ env.RUST_VERSION }}
-
-      - uses: Swatinem/rust-cache@v1
-        with:
-          cache-on-failure: true
 
       - uses: arduino/setup-protoc@v2
         with:
