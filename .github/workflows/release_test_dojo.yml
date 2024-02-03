@@ -56,6 +56,10 @@ jobs:
           targets: ${{ matrix.job.target }}
           toolchain: ${{ env.RUST_VERSION }}
 
+      - uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+
       - uses: arduino/setup-protoc@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -73,4 +77,4 @@ jobs:
           sudo apt-get install -y gcc-aarch64-linux-gnu libssl-dev
           echo "CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc" >> $GITHUB_ENV
       - name: Build binaries
-        run: cargo build --release --bins --target ${{ matrix.job.target }}
+        run: cargo build --release --bins --target ${{ matrix.job.target }} --all-features
